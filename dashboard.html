@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Painel Interno</title>
+</head>
+<body>
+<h1>Bem-vindo ao Painel!</h1>
+<p id="welcome"></p>
+<button onclick="logout()">Sair</button>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "veste-web.firebaseapp.com",
+    projectId: "veste-web",
+    storageBucket: "veste-web.appspot.com",
+    messagingSenderId: "347874327765",
+    appId: "1:347874327765:web:5d35196c3afc792c9cf65c"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  // Verifica se o usuário está logado
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      document.getElementById("welcome").innerText = "Olá, " + user.email;
+    } else {
+      // Se não estiver logado, volta para login
+      window.location.href = "index.html";
+    }
+  });
+
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      window.location.href = "index.html";
+    });
+  }
+</script>
+</body>
+</html>
